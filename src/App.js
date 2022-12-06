@@ -1,30 +1,41 @@
 import "./App.css";
 import { useState } from "react";
 import { Button, Card } from "react-bootstrap";
+import { cards } from "./data";
 
 function App() {
   const [index, setIndex] = useState(0);
-
+  const currentCard = cards[index];
+  const { author, img, description, like } = currentCard;
   const onButtonClickNext = () => {
-    setIndex((index) => index + 1);
+    setIndex((index) => {
+      if(index === cards.length - 1){
+        return 0;
+      } else {
+        return index + 1;
+      } 
+    });
+   
+  };
+  const onButtonClickPrev = () => {
+    setIndex((index) => index - 1);
   };
 
   return (
-    <div className="App">
+    <div className="container">
       <Card style={{ width: "51rem" }}>
-        <Card.Img
-          variant="top"
-          src="holder.js/100px180"
-          style={{ height: "25rem" }}
-        />
+        <Card.Img variant="top" src={img} style={{ height: "25rem" }} />
         <Card.Body>
-          <Card.Title>{index}</Card.Title>
+          <Card.Title>{author}</Card.Title>
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            {description}
+            {like ? "   O" : "   X"}
           </Card.Text>
+          <Button variant="outline-primary" onClick={onButtonClickPrev}>
+            PREV
+          </Button>
           <Button variant="outline-secondary" onClick={onButtonClickNext}>
-            Go somewhere
+            NEXT
           </Button>
         </Card.Body>
       </Card>

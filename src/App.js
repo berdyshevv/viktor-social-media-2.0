@@ -18,7 +18,13 @@ function App() {
    
   };
   const onButtonClickPrev = () => {
-    setIndex((index) => index - 1);
+    setIndex((index) => {
+      if (index  === 0){
+        return cards.length - 1;
+      } else {
+        return index - 1;
+      }
+    });
   };
 
   return (
